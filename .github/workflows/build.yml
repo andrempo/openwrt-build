@@ -1,4 +1,4 @@
-name: Build OpenWrt for ASUS RT-AX53U
+name: Build OpenWrt for Mercusys MR70X
 
 on:
   workflow_dispatch:
