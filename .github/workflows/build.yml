@@ -20,7 +20,7 @@ jobs:
 
     - name: Clone OpenWrt Source Code
       run: |
-        git clone --depth 1 --branch v23.05.3 https://github.com/openwrt/openwrt.git
+        git clone --depth 1 --branch v24.10.0 https://github.com/openwrt/openwrt.git
 
     - name: Update and Install OpenWrt Feeds
       run: |
@@ -32,6 +32,8 @@ jobs:
       run: |
         cd openwrt
         cp -f ../.config .config
+        mkdir -p tools/firmware-utils/patches
+        cp -f ../tools/firmware-utils/patches/* tools/firmware-utils/patches/
 
     - name: Setup cachewrtbuild
       uses: stupidloud/cachewrtbuild@main
@@ -49,12 +51,10 @@ jobs:
       uses: maggie0002/actions/packages/automatic-releases@built-packages
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        automatic_release_tag: "RT-AX53U"
+        automatic_release_tag: "openwrt"
         prerelease: false
         title: "Development Build"
         files: |
-          openwrt/bin/targets/ramips/mt7621/openwrt-23.05.3-ramips-mt7621-asus_rt-ax53u-initramfs-kernel.bin
-          openwrt/bin/targets/ramips/mt7621/openwrt-23.05.3-ramips-mt7621-asus_rt-ax53u-squashfs-factory.bin
-          openwrt/bin/targets/ramips/mt7621/openwrt-23.05.3-ramips-mt7621-asus_rt-ax53u-squashfs-sysupgrade.bin
-          openwrt/bin/targets/ramips/mt7621/openwrt-23.05.3-ramips-mt7621-asus_rt-ax53u.manifest
+          openwrt/bin/targets/ramips/mt7621/*.bin
+          openwrt/bin/targets/ramips/mt7621/*.manifest
 
